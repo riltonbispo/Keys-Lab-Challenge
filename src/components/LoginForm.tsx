@@ -6,10 +6,11 @@ import { z } from 'zod'
 import { loginSchema } from '../schema/formSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Input from './Input'
+import Link from 'next/link'
 
 type DataProps = z.infer<typeof loginSchema>
 
-const Form = () => {
+const LoginForm = () => {
   const {
     register,
     handleSubmit,
@@ -18,8 +19,6 @@ const Form = () => {
     mode: 'onBlur',
     resolver: zodResolver(loginSchema),
   })
-
-  console.log(errors)
 
   return (
     <form
@@ -39,13 +38,12 @@ const Form = () => {
         type="password"
         helper={errors.password?.message}
       />
-      <a
-        href="#"
-        target="_blank"
+      <Link
+        href={'/new-password'}
         className="self-end text-right text-zinc-600 hover:text-zinc-500 underline underline-offset-2"
       >
         Esqueci minha senha
-      </a>
+      </Link>
       <button
         type="submit"
         className="bg-blue-600 py-4 rounded-full hover:bg-blue-800 text-zinc-950 font-bold"
@@ -54,16 +52,15 @@ const Form = () => {
       </button>
       <span className="text-zinc-600 text-center self-center">
         Ainda nao tem conta?{' '}
-        <a
-          href="#"
-          target="_blank"
+        <Link
+          href="/new-account"
           className="hover:text-zinc-500 underline underline-offset-2"
         >
           Registre-se
-        </a>
+        </Link>
       </span>
     </form>
   )
 }
 
-export default Form
+export default LoginForm
